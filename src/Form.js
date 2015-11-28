@@ -48,21 +48,19 @@ export default class Form extends React.Component {
                 <TextField
                     floatingLabelText="Name"
                     value={this.state.name}
+                    style={{width: 200}}
                     onChange={::this.handleNameChange}/>
-
-                <SelectField
-                    value={this.state.gender}
-                    onChange={::this.handleGenderChange.bind(null, 'selectValue')}
-                    menuItems={genderItems}/>
 
                 <TextField
                     floatingLabelText="Body weight"
                     value={this.state.weight}
+                    style={{width: 150}}
                     onChange={::this.handleWeightChange}/>
 
                 <TextField
                     floatingLabelText="Squat"
                     value={this.state.squat}
+                    style={{width: 150}}
                     onChange={::this.handleSquatChange}/>
 
                 <RaisedButton
