@@ -30,9 +30,9 @@ export default class ScoreBox extends React.Component {
     }
 
     render() {
-        var listNodes = this.props.lists.map(list => {
+        var listNodes = this.props.lists.map((list, index) => {
             return (
-                <ScoreList list={list}/>
+                <ScoreList list={list} userScore={this.props.userScore} key={index} />
             );
         });
         return (
@@ -43,5 +43,13 @@ export default class ScoreBox extends React.Component {
         );
     }
 }
+ScoreBox.propTypes = {
+    lists: React.PropTypes.arrayOf(React.PropTypes.object),
+    userScore: React.PropTypes.object
+};
 
 
+ScoreBox.defaultProps = {
+    lists: [],
+    userScore: null
+};

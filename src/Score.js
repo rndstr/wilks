@@ -5,10 +5,10 @@ import wilks from './wilks';
 
 export default class Score extends React.Component {
     render() {
-        var score = Score.preprocess(this.props.score, this.props.gender);
+        var score = this.props.score;//Score.preprocess(this.props.score, this.props.gender);
 
         return (
-            <TableRow>
+            <TableRow className={this.props.className}>
                 <TableRowColumn>{score.name}</TableRowColumn>
                 <TableRowColumn>{score.weight}kg<br/>({score.wilks})</TableRowColumn>
                 <TableRowColumn>{score.squat}kg<br/>({score.squatWilks})</TableRowColumn>

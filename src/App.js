@@ -45,11 +45,19 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 export default class App extends React.Component {
+    constructor() {
+        super();
+        this.state = {userScore: null};
+    }
+    handleUserScore(score) {
+        this.setState({userScore: score});
+    }
+
     render() {
         return (
             <div>
-                <Form />
-                <ScoreBox lists={lists}/>
+                <Form onUserScore={::this.handleUserScore} />
+                <ScoreBox lists={lists} userScore={this.state.userScore} />
             </div>
         );
     }

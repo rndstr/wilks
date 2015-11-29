@@ -9,11 +9,28 @@ import Score from './Score';
 
 export default class ScoreList extends React.Component {
     render() {
-        var scoreNodes = this.props.list.scores.map(score => {
+        let scoreNodes = this.props.list.scores.map((score, index) => {
             return (
-                <Score score={score} gender={this.props.list.gender} key={score.id}/>
+                <Score score={score} gender={this.props.list.gender} key={index}/>
             );
         });
+
+        if (this.props.userScore) {
+            let userScoreNode = <Score className="wilks-user-score" score={this.props.userScore} />;
+            let insertAt = scoreNodes.findIndex(node => {
+                return (this.props.userScore.squatWilks < node.props.score.squatWilks);
+            });
+
+            if (insertAt === -1) {
+                scoreNodes.push(userScoreNode);
+            } else {
+                scoreNodes = [].concat(
+                    scoreNodes.slice(0, insertAt),
+                    userScoreNode,
+                    scoreNodes.slice(insertAt)
+                );
+            }
+        }
 
         return (
             <div>

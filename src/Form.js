@@ -1,13 +1,29 @@
 import React from 'react';
-import TextField from 'material-ui/lib/text-field'
-import RaisedButton from 'material-ui/lib/raised-button'
-import SelectField from 'material-ui/lib/select-field'
+import ReactDOM from 'react-dom';
+import TextField from 'material-ui/lib/text-field';
+import RaisedButton from 'material-ui/lib/raised-button';
+import SelectField from 'material-ui/lib/select-field';
+import Score from './Score';
 
 export default class Form extends React.Component {
 
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {name: '', gender: 'male', weight: '', squat: ''};
+    }
+
+
+    handleSubmit(e) {
+        e.preventDefault();
+
+        let score = Score.preprocess({
+                name: this.state.name,
+                weight: this.state.weight,
+                squat: this.state.squat
+            },
+            this.state.gender
+        );
+        this.props.onUserScore(score);
     }
 
     handleNameChange(e) {
@@ -18,18 +34,8 @@ export default class Form extends React.Component {
         this.setState({weight: e.target.value});
     }
 
-    handleGenderChange(e) {
-        this.setState({gender: e.target.value});
-    }
-
     handleSquatChange(e) {
         this.setState({squat: e.target.value});
-    }
-
-    handleSubmit(e) {
-        e.preventDefault();
-        console.log(e);
-        alert(e.target.name);
     }
 
     render() {
@@ -47,26 +53,34 @@ export default class Form extends React.Component {
             <form className="score-form" onSubmit={::this.handleSubmit}>
                 <TextField
                     floatingLabelText="Name"
-                    value={this.state.name}
+                    value={this.props.name}
                     style={{width: 200}}
-                    onChange={::this.handleNameChange}/>
+                    onChange={::this.handleNameChange}
+                    />
 
                 <TextField
                     floatingLabelText="Body weight"
-                    value={this.state.weight}
+                    value={this.props.weight}
                     style={{width: 150}}
-                    onChange={::this.handleWeightChange}/>
+                    onChange={::this.handleWeightChange}
+                    />
 
                 <TextField
                     floatingLabelText="Squat"
-                    value={this.state.squat}
+                    value={this.props.squat}
                     style={{width: 150}}
-                    onChange={::this.handleSquatChange}/>
+                    onChange={::this.handleSquatChange}
+                    />
 
                 <RaisedButton
-                    label="Go"
+                    label="Calculate"
                     onClick={::this.handleSubmit}/>
             </form>
         );
     }
 }
+
+Form.propTypes = {
+    onUserScore: React.PropTypes.func.isRequired
+};
+
