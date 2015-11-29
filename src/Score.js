@@ -34,12 +34,12 @@ export default class Score extends React.Component {
             t = score.total || (score.squat + score.bench + score.dead),
             tw = score.totalWilks || (sw + bw + dw);
 
-        score.wilks = w;
-        score.squatWilks = sw;
-        score.benchWilks = bw;
-        score.deadWilks = dw;
-        score.totalWilks = tw;
-        score.total = t;
+        score.wilks = +w;
+        score.squatWilks = +sw;
+        score.benchWilks = +bw;
+        score.deadWilks = +dw;
+        score.totalWilks = +tw;
+        score.total = +t;
 
         return score;
     }

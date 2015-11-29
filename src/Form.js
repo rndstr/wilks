@@ -11,7 +11,7 @@ export default class Form extends React.Component {
         super();
         this.state = {
             name: '', gender: 'male',
-            weight: '', squat: '',
+            weight: '', squat: '', bench: '', dead: '',
             weightError: '', squatError: ''
         };
     }
@@ -21,13 +21,14 @@ export default class Form extends React.Component {
 
         let score = Score.preprocess({
                 name: this.state.name,
-                weight: this.state.weight,
-                squat: this.state.squat,
+                weight: +this.state.weight,
+                squat: +this.state.squat,
+                bench: +this.state.bench,
+                dead: +this.state.dead,
                 gender: this.state.gender
             },
             this.state.gender
         );
-        console.log(score);
         this.props.onUserScore(score);
     }
 
@@ -69,7 +70,7 @@ export default class Form extends React.Component {
                 text: 'Female'
             }
         ];
-        console.log(this.state.gender);
+
         return (
             <form className="score-form" onSubmit={::this.handleSubmit}>
 
@@ -94,6 +95,21 @@ export default class Form extends React.Component {
                     style={{width: 150}}
                     onChange={this.handleNumberChange.bind(this, 'squat')}
                     errorText={this.state.squatError}
+                    />
+
+                <TextField
+                    floatingLabelText="Bench press in kg"
+                    value={this.state.bench}
+                    style={{width: 150}}
+                    onChange={this.handleNumberChange.bind(this, 'bench')}
+                    errorText={this.state.benchError}
+                    />
+                <TextField
+                    floatingLabelText="Deadlift in kg"
+                    value={this.state.dead}
+                    style={{width: 150}}
+                    onChange={this.handleNumberChange.bind(this, 'dead')}
+                    errorText={this.state.deadError}
                     />
 
                 <TextField

@@ -9,7 +9,10 @@ export default class ScoreBox extends React.Component {
         super(props);
 
         this.state = {filters: {}};
+
+        // prepare lists
         this.props.lists.forEach((list, listIndex) => {
+            // precalculate wilks scores
             list.scores.forEach((score, scoreIndex) => {
                 this.props.lists[listIndex].scores[scoreIndex] = Score.preprocess(
                     this.props.lists[listIndex].scores[scoreIndex],
@@ -17,6 +20,7 @@ export default class ScoreBox extends React.Component {
                 );
             });
 
+            // sort by total wilks score
             list.scores.sort((a, b) => {
                 if (a.totalWilks < b.totalWilks) {
                     return -1;
