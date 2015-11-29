@@ -11,8 +11,7 @@ export default class ScoreList extends React.Component {
     render() {
         var scoreNodes = this.props.list.scores.map(score => {
             return (
-                <Score name={score.name} wilks={score.wilks} gender={this.props.list.gender} weight={score.weight} squat={score.squat}
-                       key={score.id}/>
+                <Score score={score} gender={this.props.list.gender} key={score.id}/>
             );
         });
 
@@ -25,6 +24,9 @@ export default class ScoreList extends React.Component {
                             <TableHeaderColumn tooltip=''>Name</TableHeaderColumn>
                             <TableHeaderColumn tooltip='Body weight'>Body (wilks)</TableHeaderColumn>
                             <TableHeaderColumn tooltip='Squat weight'>Squat (wilks)</TableHeaderColumn>
+                            <TableHeaderColumn>Bench press (wilks)</TableHeaderColumn>
+                            <TableHeaderColumn>Deadlift (wilks)</TableHeaderColumn>
+                            <TableHeaderColumn>Totals (wilks)</TableHeaderColumn>
                         </TableRow>
                     </TableHeader>
                     <TableBody showRowHover={true}>

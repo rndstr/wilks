@@ -5,15 +5,36 @@ import wilks from './wilks';
 
 export default class Score extends React.Component {
     render() {
-        var w = this.props.wilks || wilks(this.props.gender, this.props.weight);
+        var score = Score.preprocess(this.props.score, this.props.gender);
 
         return (
             <TableRow>
-                <TableRowColumn>{this.props.name}</TableRowColumn>
-                <TableRowColumn>{this.props.weight}kg ({w})</TableRowColumn>
-                <TableRowColumn>{this.props.squat}kg ({w * this.props.squat})</TableRowColumn>
+                <TableRowColumn>{score.name}</TableRowColumn>
+                <TableRowColumn>{score.weight}kg<br/>({score.wilks})</TableRowColumn>
+                <TableRowColumn>{score.squat}kg<br/>({score.squatWilks})</TableRowColumn>
+                <TableRowColumn>{score.bench}kg<br/>({score.benchWilks})</TableRowColumn>
+                <TableRowColumn>{score.dead}kg<br/>({score.deadWilks})</TableRowColumn>
+                <TableRowColumn>{score.total}kg<br/>({score.totalWilks})</TableRowColumn>
             </TableRow>
         );
+    }
+
+    static preprocess(score, gender) {
+        var w = score.wilks || wilks(gender, score.weight),
+            sw = score.squatWilks || score.squat * w,
+            bw = score.benchWilks || score.bench * w,
+            dw = score.deadWilks || score.dead * w,
+            t = score.total || (score.squat + score.bench + score.dead),
+            tw = score.totalWilks || (sw + bw + dw);
+
+        score.wilks = w;
+        score.squatWilks = sw;
+        score.benchWilks = bw;
+        score.deadWilks = dw;
+        score.totalWilks = tw;
+        score.total = t;
+
+        return score;
     }
 }
 
