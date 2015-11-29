@@ -1,3 +1,4 @@
+import './styles.scss';
 import React from 'react';
 import Form from './Form';
 import ScoreBox from './ScoreBox';
@@ -6,7 +7,7 @@ let lists = [
     {
         id: 1,
         name: 'strengthlevel.com Standards (male) -60kg',
-        filter: {max: 60, gender: 'male'},
+        meta: {max: 60, gender: 'male'},
         scores: [
             {name: 'Beginner', weight: 60, squat: 48, bench: 35, dead: 63},
             {name: 'Novice', weight: 60, squat: 72, bench: 54, dead: 90},
@@ -18,7 +19,7 @@ let lists = [
     {
         id: 2,
         name: 'strengthlevel.com Standards (female) -40kg',
-        filter: {max: 40, gender: 'female'},
+        meta: {max: 40, gender: 'female'},
         scores: [
             {name: 'Beginner', weight: 40, squat: 17, bench: 9, dead: 25},
             {name: 'Novice', weight: 40, squat: 34, bench: 21, dead: 44},
@@ -30,7 +31,7 @@ let lists = [
     {
         id: 3,
         name: 'strengthlevel.com Standards (female) 56-60kg',
-        filter: {min: 56, max: 60, gender: 'female'},
+        meta: {min: 55, max: 60, gender: 'female'},
         scores: [
             {name: 'Beginner', weight: 60, squat: 24},
             {name: 'Novice', weight: 60, squat: 45},

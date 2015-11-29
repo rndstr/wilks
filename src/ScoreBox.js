@@ -8,6 +8,7 @@ export default class ScoreBox extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {filters: {}};
         this.props.lists.forEach((list, listIndex) => {
             list.scores.forEach((score, scoreIndex) => {
                 this.props.lists[listIndex].scores[scoreIndex] = Score.preprocess(
@@ -29,17 +30,22 @@ export default class ScoreBox extends React.Component {
         });
     }
 
+    handleFilterChange(filters) {
+        this.setState({filters: filters});
+    }
+
     render() {
         var listNodes = this.props.lists.map((list, index) => {
             return (
-                <ScoreList list={list} userScore={this.props.userScore} key={index} />
+                <ScoreList list={list} userScore={this.props.userScore} key={index} filters={this.state.filters} />
             );
         });
         return (
-            <div>
-                <ScoreListFilter />
+            <section>
+                <h2>Lists</h2>
+                <ScoreListFilter onFilterChange={::this.handleFilterChange} disabled={!this.props.userScore} />
                 {listNodes}
-            </div>
+            </section>
         );
     }
 }

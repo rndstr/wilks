@@ -5,7 +5,7 @@ import wilks from './wilks';
 
 export default class Score extends React.Component {
     render() {
-        var score = this.props.score;//Score.preprocess(this.props.score, this.props.gender);
+        var score = this.props.score;
 
         return (
             <TableRow className={this.props.className}>
@@ -19,6 +19,13 @@ export default class Score extends React.Component {
         );
     }
 
+    /**
+     * Helper method to calculate wilks scores
+     *
+     * @param {object} score
+     * @param {string} gender
+     * @returns {object}
+     */
     static preprocess(score, gender) {
         var w = score.wilks || wilks(gender, score.weight),
             sw = score.squatWilks || score.squat * w,

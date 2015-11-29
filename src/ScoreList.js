@@ -8,7 +8,36 @@ import TableRow from 'material-ui/lib/table/table-row';
 import Score from './Score';
 
 export default class ScoreList extends React.Component {
+    static filterMatches(filters, list, user) {
+        return Object.keys(filters)
+            .filter(filter => filters[filter])
+            .every(filter => {
+                if (filter === 'weight') {
+                    // min
+                    if (list.meta.min && user.weight <= list.meta.min) {
+                        return false;
+                    }
+                    // max
+                    if (list.meta.max && user.weight > list.meta.max) {
+                        return false;
+                    }
+
+                    return true;
+                } else if (filter === 'gender') {
+                    return list.meta.gender === user.gender;
+                }
+            });
+    }
+
     render() {
+        if (!ScoreList.filterMatches(this.props.filters, this.props.list, this.props.userScore)) {
+            return (
+                <div>
+                    <p>filtered: {this.props.list.name}</p>
+                </div>
+            );
+        }
+
         let scoreNodes = this.props.list.scores.map((score, index) => {
             return (
                 <Score score={score} gender={this.props.list.gender} key={index}/>
@@ -16,7 +45,7 @@ export default class ScoreList extends React.Component {
         });
 
         if (this.props.userScore) {
-            let userScoreNode = <Score className="wilks-user-score" score={this.props.userScore} />;
+            let userScoreNode = <Score className="wilks-user-score" score={this.props.userScore}/>;
             let insertAt = scoreNodes.findIndex(node => {
                 return (this.props.userScore.squatWilks < node.props.score.squatWilks);
             });
@@ -34,7 +63,7 @@ export default class ScoreList extends React.Component {
 
         return (
             <div>
-                <h2>{this.props.list.name}</h2>
+                <h3>{this.props.list.name}</h3>
                 <Table>
                     <TableHeader>
                         <TableRow>

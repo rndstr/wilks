@@ -9,9 +9,12 @@ export default class Form extends React.Component {
 
     constructor() {
         super();
-        this.state = {name: '', gender: 'male', weight: '', squat: ''};
+        this.state = {
+            name: '', gender: 'male',
+            weight: '', squat: '',
+            weightError: '', squatError: ''
+        };
     }
-
 
     handleSubmit(e) {
         e.preventDefault();
@@ -19,10 +22,12 @@ export default class Form extends React.Component {
         let score = Score.preprocess({
                 name: this.state.name,
                 weight: this.state.weight,
-                squat: this.state.squat
+                squat: this.state.squat,
+                gender: this.state.gender
             },
             this.state.gender
         );
+        console.log(score);
         this.props.onUserScore(score);
     }
 
@@ -30,12 +35,27 @@ export default class Form extends React.Component {
         this.setState({name: e.target.value});
     }
 
-    handleWeightChange(e) {
-        this.setState({weight: e.target.value});
+    handleGenderChange(e) {
+        this.setState({gender: e.target.value});
     }
 
-    handleSquatChange(e) {
-        this.setState({squat: e.target.value});
+    handleNumberChange(what, e) {
+        this.validateAndSet(what, e.target.value);
+    }
+
+    validateAndSet(what, value) {
+        let state = {};
+        if (Form.isNumber(value) || !value) {
+            state[what] = value;
+            state[what + 'Error'] = '';
+        } else {
+            state[what + 'Error'] = 'Must be a number';
+        }
+        this.setState(state);
+    }
+
+    static isNumber(value) {
+        return ('' + value).match(/^\d+(\.\d*)?$/);
     }
 
     render() {
@@ -49,31 +69,42 @@ export default class Form extends React.Component {
                 text: 'Female'
             }
         ];
+        console.log(this.state.gender);
         return (
             <form className="score-form" onSubmit={::this.handleSubmit}>
+
+                <SelectField
+                    value={this.state.gender}
+                    floatingLabelText="Gender"
+                    menuItems={genderItems}
+                    onChange={::this.handleGenderChange}
+                    />
+
                 <TextField
-                    floatingLabelText="Name"
-                    value={this.props.name}
+                    floatingLabelText="Body weight in kg"
+                    value={this.state.weight}
+                    style={{width: 150}}
+                    onChange={this.handleNumberChange.bind(this, 'weight')}
+                    errorText={this.state.weightError}
+                    />
+
+                <TextField
+                    floatingLabelText="Squat in kg"
+                    value={this.state.squat}
+                    style={{width: 150}}
+                    onChange={this.handleNumberChange.bind(this, 'squat')}
+                    errorText={this.state.squatError}
+                    />
+
+                <TextField
+                    floatingLabelText="Name (optional)"
+                    value={this.state.name}
                     style={{width: 200}}
                     onChange={::this.handleNameChange}
                     />
 
-                <TextField
-                    floatingLabelText="Body weight"
-                    value={this.props.weight}
-                    style={{width: 150}}
-                    onChange={::this.handleWeightChange}
-                    />
-
-                <TextField
-                    floatingLabelText="Squat"
-                    value={this.props.squat}
-                    style={{width: 150}}
-                    onChange={::this.handleSquatChange}
-                    />
-
                 <RaisedButton
-                    label="Calculate"
+                    label="Update"
                     onClick={::this.handleSubmit}/>
             </form>
         );
