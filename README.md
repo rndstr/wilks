@@ -1,4 +1,4 @@
-wilks
+wilks [![Build Status](https://travis-ci.org/rndstr/wilks.svg?branch=master)](https://travis-ci.org/rndstr/wilks)
 =====
 
 Strength calculator with Wilks Coefficient using [react](https://github.com/facebook/react) and [material-ui](https://github.com/callemall/material-ui)
