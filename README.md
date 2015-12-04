@@ -13,6 +13,11 @@ npm start
 open http://localhost:4000
 ```
 
+### Tests
+```
+npm test
+```
+
 ### TODOs
 - responsive (only really usable between ~700-1100px)
 - more comparison lists
