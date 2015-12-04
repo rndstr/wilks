@@ -14,7 +14,5 @@ open http://localhost:4000
 ```
 
 ### TODOs
-
-- tests
 - responsive (only really usable between ~700-1100px)
 - more comparison lists
