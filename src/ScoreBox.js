@@ -46,8 +46,8 @@ export default class ScoreBox extends React.Component {
         });
         return (
             <section>
-                <h2>Lists</h2>
-                <ScoreListFilter onFilterChange={::this.handleFilterChange} disabled={!this.props.userScore} />
+                <h2>Compare your strength</h2>
+                <ScoreListFilter onFilterChange={this.handleFilterChange.bind(this)} disabled={!this.props.userScore} />
                 {listNodes}
             </section>
         );

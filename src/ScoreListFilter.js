@@ -18,17 +18,18 @@ export default class ListFilter extends React.Component {
 
     render() {
         return (
-            <div>
+            <div style={{marginBottom: '16px'}}>
                 <CheckBox
                     name='weight'
-                    label='Filter by your weight'
-                    onClick={::this.handleFilterChange}
+                    label='Only your weight class'
+                    onClick={this.handleFilterChange.bind(this)}
                     disabled={this.props.disabled}
                     />
+
                 <CheckBox
                     name='gender'
-                    label='Filter by your gender'
-                    onClick={::this.handleFilterChange}
+                    label='Only your gender'
+                    onClick={this.handleFilterChange.bind(this)}
                     disabled={this.props.disabled}
                     />
             </div>

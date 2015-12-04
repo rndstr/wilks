@@ -4,20 +4,30 @@ import TableRowColumn from 'material-ui/lib/table/table-row-column';
 import wilks from './wilks';
 
 export default class Score extends React.Component {
+
+    formatWilks(number) {
+        return <em>{number ? parseFloat(Math.round(number * 100) / 100).toFixed(2) : '?'}</em>;
+    }
+    formatWeight(number) {
+        return <strong>{number ? number : '?'}kg</strong>;
+    }
+
     render() {
-        var score = this.props.score;
+        let score = this.props.score;
+        let nstyle = {width: '15%'};
 
         return (
             <TableRow className={this.props.className}>
-                <TableRowColumn>{score.name}</TableRowColumn>
-                <TableRowColumn>{score.weight}kg<br/>({score.wilks})</TableRowColumn>
-                <TableRowColumn>{score.squat}kg<br/>({score.squatWilks})</TableRowColumn>
-                <TableRowColumn>{score.bench}kg<br/>({score.benchWilks})</TableRowColumn>
-                <TableRowColumn>{score.dead}kg<br/>({score.deadWilks})</TableRowColumn>
-                <TableRowColumn>{score.total}kg<br/>({score.totalWilks})</TableRowColumn>
+                <TableRowColumn className="wilks-col-name">{score.name}</TableRowColumn>
+                <TableRowColumn className="wilks-col-body" style={nstyle}>{this.formatWeight(score.weight)} {this.formatWilks(score.wilks)}</TableRowColumn>
+                <TableRowColumn className="wilks-col-squat" style={nstyle}>{this.formatWeight(score.squat)} {this.formatWilks(score.squatWilks)}</TableRowColumn>
+                <TableRowColumn className="wilks-col-bench" style={nstyle}>{this.formatWeight(score.bench)} {this.formatWilks(score.benchWilks)}</TableRowColumn>
+                <TableRowColumn className="wilks-col-dead" style={nstyle}>{this.formatWeight(score.dead)} {this.formatWilks(score.deadWilks)}</TableRowColumn>
+                <TableRowColumn className="wilks-col-total" style={Object.assign({background: '#FFF9C4'}, nstyle)}>{this.formatWeight(score.total)} {this.formatWilks(score.totalWilks)}</TableRowColumn>
             </TableRow>
         );
     }
+
 
     /**
      * Helper method to calculate wilks scores

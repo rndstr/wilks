@@ -1,10 +1,15 @@
 import React from 'react';
+
+import Card from 'material-ui/lib/card/card';
+import CardTitle from 'material-ui/lib/card/card-title';
+import CardText from 'material-ui/lib/card/card-text';
 import Table from 'material-ui/lib/table/table';
 import TableBody from 'material-ui/lib/table/table-body';
 import TableFooter from 'material-ui/lib/table/table-footer';
 import TableHeader from 'material-ui/lib/table/table-header';
 import TableHeaderColumn from 'material-ui/lib/table/table-header-column';
 import TableRow from 'material-ui/lib/table/table-row';
+
 import Score from './Score';
 
 export default class ScoreList extends React.Component {
@@ -61,25 +66,27 @@ export default class ScoreList extends React.Component {
             }
         }
 
+        let nstyle = {width: '15%'};
+
         return (
-            <div>
-                <h3>{this.props.list.name}</h3>
+            <Card style={{marginBottom: '16px'}}>
+                <CardTitle style={{paddingBottom: 0, paddingTop: '16px'}} title={this.props.list.name} subtitle={this.props.list.url}/>
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            <TableHeaderColumn tooltip=''>Name</TableHeaderColumn>
-                            <TableHeaderColumn tooltip='Body weight'>Body (wilks)</TableHeaderColumn>
-                            <TableHeaderColumn tooltip='Squat weight'>Squat (wilks)</TableHeaderColumn>
-                            <TableHeaderColumn>Bench press (wilks)</TableHeaderColumn>
-                            <TableHeaderColumn>Deadlift (wilks)</TableHeaderColumn>
-                            <TableHeaderColumn>Totals (wilks)</TableHeaderColumn>
+                            <TableHeaderColumn className="wilks-col-name"></TableHeaderColumn>
+                            <TableHeaderColumn style={nstyle} className="wilks-col-body">Body weight</TableHeaderColumn>
+                            <TableHeaderColumn style={nstyle} className="wilks-col-squat">Squat</TableHeaderColumn>
+                            <TableHeaderColumn style={nstyle} className="wilks-col-bench"j>Bench press</TableHeaderColumn>
+                            <TableHeaderColumn style={nstyle} className="wilks-col-dead">Deadlift</TableHeaderColumn>
+                            <TableHeaderColumn style={nstyle} className="wilks-col-totals">Totals</TableHeaderColumn>
                         </TableRow>
                     </TableHeader>
                     <TableBody showRowHover={true}>
                         {scoreNodes}
                     </TableBody>
                 </Table>
-            </div>
+            </Card>
         );
     }
 }

@@ -57,7 +57,8 @@ export default class App extends React.Component {
     render() {
         return (
             <div>
-                <Form onUserScore={::this.handleUserScore} />
+                <h1>Wilks Calculator</h1>
+                <Form onUserScore={this.handleUserScore.bind(this)} />
                 <ScoreBox lists={lists} userScore={this.state.userScore} />
             </div>
         );

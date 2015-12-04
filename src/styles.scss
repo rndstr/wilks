@@ -1,3 +1,61 @@
 body {
     font-family: 'Roboto', sans-serif;
+    margin: 20px;
+    padding: 0;
+    background: #eee;
+}
+* {
+box-sizing: border-box;
+}
+
+.clearfix {
+    &:before,
+    &:after {
+        content: " ";
+        display: table;
+    }
+
+    &:after {
+        clear: both;
+    }
+}
+
+tr.wilks-user-score {
+    background: #90CAF9;
+
+    td.wilks-col-name {
+        color: #C2185B;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+}
+td {
+    vertical-align: top;
+    strong {
+        font-size: 18px;
+        font-weight: normal;
+        display: block;
+
+    }
+    em {
+        color: #666;
+        font-style: normal;
+    }
+}
+td.wilks-col-name {
+    vertical-align: middle;
+    font-size: 18px !important;
+}
+td.wilks-col-squat,
+td.wilks-col-bench,
+td.wilks-col-dead {
+    strong {
+        font-weight: bold;
+    }
+}
+td.wilks-col-totals {
+    font-weight: bold;
+}
+.mui-table-header-row th:first-child {
+    display: none;
 }
