@@ -26,6 +26,14 @@ export default class Form extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
 
+        let errors = ['weight', 'squat', 'bench', 'dead'].filter(what => {
+                return !this.validate(what);
+        });
+
+        if (errors.length > 0) {
+            return;
+        }
+
         let score = Score.preprocess({
                 name: this.state.name,
                 weight: +this.state.weight,
@@ -38,6 +46,7 @@ export default class Form extends React.Component {
         );
         this.props.onUserScore(score);
     }
+
     handleChange(what, e) {
         var state = {};
         state[what] = e.target.value;
@@ -45,18 +54,26 @@ export default class Form extends React.Component {
     }
 
     handleNumberChange(what, e) {
-        this.validateAndSet(what, e.target.value);
+        let state = {}, value = e.target.value;
+
+        if (this.validate(what, value) || !value) {
+            state[what] = value;
+            this.setState(state);
+        }
     }
 
-    validateAndSet(what, value) {
-        let state = {};
-        if (Form.isNumber(value) || !value) {
-            state[what] = value;
-            state[what + 'Error'] = '';
-        } else {
-            state[what + 'Error'] = 'Must be a number';
+    validate(what, value) {
+        if (typeof value === 'undefined') {
+            value = this.state[what];
         }
+
+        let error = (!Form.isNumber(value) || !value);
+
+        let state = {};
+        state[what + 'Error'] = error ? 'Must be a number' : '';
         this.setState(state);
+
+        return !error;
     }
 
     static isNumber(value) {
