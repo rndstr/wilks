@@ -74,10 +74,10 @@ export default class ScoreList extends React.Component {
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            <TableHeaderColumn className="wilks-col-name"></TableHeaderColumn>
+                            <TableHeaderColumn className="wilks-col-name" />
                             <TableHeaderColumn style={nstyle} className="wilks-col-body">Body weight</TableHeaderColumn>
                             <TableHeaderColumn style={nstyle} className="wilks-col-squat">Squat</TableHeaderColumn>
-                            <TableHeaderColumn style={nstyle} className="wilks-col-bench"j>Bench press</TableHeaderColumn>
+                            <TableHeaderColumn style={nstyle} className="wilks-col-bench">Bench press</TableHeaderColumn>
                             <TableHeaderColumn style={nstyle} className="wilks-col-dead">Deadlift</TableHeaderColumn>
                             <TableHeaderColumn style={nstyle} className="wilks-col-totals">Totals</TableHeaderColumn>
                         </TableRow>
@@ -91,4 +91,8 @@ export default class ScoreList extends React.Component {
     }
 }
 
-
+ScoreList.propTypes = {
+    list: React.PropTypes.object,
+    filters: React.PropTypes.object,
+    userScore: React.PropTypes.object
+};

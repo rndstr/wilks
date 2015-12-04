@@ -4,7 +4,7 @@
   "description": "Boilerplate for ReactJS project with hot code reloading",
   "scripts": {
     "start": "node server.js",
-    "lint": "eslint src",
+    "lint": "./node_modules/.bin/eslint src",
     "deploy": "NODE_ENV=production webpack -p --config webpack.production.config.js",
     "test": "NODE_ENV=test ./node_modules/.bin/mocha --compilers js:babel-core/register test"
   },
@@ -39,6 +39,7 @@
     "chai": "^3.4.1",
     "copy-webpack-plugin": "^0.3.3",
     "css-loader": "^0.23.0",
+    "eslint": "^1.10.3",
     "eslint-plugin-react": "^3.6.2",
     "mocha": "^2.3.4",
     "node-sass": "^3.4.2",

@@ -20,15 +20,15 @@ export default class ListFilter extends React.Component {
         return (
             <div style={{marginBottom: '16px'}}>
                 <CheckBox
-                    name='weight'
-                    label='Only your weight class'
+                    name="weight"
+                    label="Only your weight class"
                     onClick={this.handleFilterChange.bind(this)}
                     disabled={this.props.disabled}
                     />
 
                 <CheckBox
-                    name='gender'
-                    label='Only your gender'
+                    name="gender"
+                    label="Only your gender"
                     onClick={this.handleFilterChange.bind(this)}
                     disabled={this.props.disabled}
                     />
@@ -38,5 +38,6 @@ export default class ListFilter extends React.Component {
 }
 
 ListFilter.propTypes = {
-    onFilterChange: React.PropTypes.func.isRequired
+    onFilterChange: React.PropTypes.func.isRequired,
+    disabled: React.PropTypes.bool
 }

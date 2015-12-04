@@ -55,4 +55,7 @@ export default class Score extends React.Component {
     }
 }
 
-
+Score.propTypes = {
+    score: React.PropTypes.object,
+    className: React.PropTypes.string
+};
