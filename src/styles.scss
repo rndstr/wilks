@@ -53,9 +53,13 @@ td.wilks-col-dead {
         font-weight: bold;
     }
 }
-td.wilks-col-totals {
-    font-weight: bold;
+
+td.wilks-col-total {
+    em {
+        font-weight: bold;
+    }
 }
+
 .mui-table-header-row th:first-child {
     display: none;
 }
