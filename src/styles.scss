@@ -4,8 +4,9 @@ body {
     padding: 0;
     background: #eee;
 }
+
 * {
-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .clearfix {
@@ -29,6 +30,7 @@ tr.wilks-user-score {
         font-weight: bold;
     }
 }
+
 td {
     vertical-align: top;
     strong {
@@ -42,10 +44,12 @@ td {
         font-style: normal;
     }
 }
+
 td.wilks-col-name {
     vertical-align: middle;
     font-size: 18px !important;
 }
+
 td.wilks-col-squat,
 td.wilks-col-bench,
 td.wilks-col-dead {
