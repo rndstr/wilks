@@ -35,14 +35,7 @@ export default class ScoreList extends React.Component {
     }
 
     render() {
-        if (!ScoreList.filterMatches(this.props.filters, this.props.list, this.props.userScore)) {
-            return (
-                <div>
-                    <p>filtered: {this.props.list.name}</p>
-                </div>
-            );
-        }
-
+        let visible = ScoreList.filterMatches(this.props.filters, this.props.list, this.props.userScore);
         let scoreNodes = this.props.list.scores.map((score, index) => {
             return (
                 <Score score={score} gender={this.props.list.gender} key={index}/>
@@ -69,7 +62,7 @@ export default class ScoreList extends React.Component {
         let nstyle = {width: '15%'};
 
         return (
-            <Card style={{marginBottom: '16px'}}>
+            <Card style={{marginBottom: '16px', display: visible ? 'block' : 'none'}}>
                 <CardTitle style={{paddingBottom: 0, paddingTop: '16px'}} title={this.props.list.name} subtitle={this.props.list.url}/>
                 <Table>
                     <TableHeader>
