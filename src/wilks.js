@@ -1,7 +1,5 @@
 function calc (a, b, c, d, e, f) {
-    return function (x) {
-        return 500 / (a + b*x + c*x*x + d*x*x*x + e*x*x*x*x + f*x*x*x*x*x);
-    }
+    return (x) => 500 / (a + b*x + c*x*x + d*x*x*x + e*x*x*x*x + f*x*x*x*x*x);
 }
 
 export default function wilks(gender, bodyWeight) {

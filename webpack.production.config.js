@@ -3,7 +3,6 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 var node_modules_dir = path.resolve(__dirname, 'node_modules');
 
 module.exports = {
-    devtool: 'eval',
     entry: path.resolve(__dirname, 'src/index.js'),
     output: {
         path: path.resolve(__dirname, 'dist'),

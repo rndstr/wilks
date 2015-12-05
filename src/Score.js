@@ -5,29 +5,28 @@ import wilks from './wilks';
 
 export default class Score extends React.Component {
 
-    formatWilks(number) {
-        return <em>{number ? parseFloat(Math.round(number * 100) / 100).toFixed(2) : '?'}</em>;
-    }
-    formatWeight(number) {
-        return <strong>{number ? number : '?'}kg</strong>;
-    }
-
     render() {
         let score = this.props.score;
-        let nstyle = {width: '15%'};
+        let rowStyle = {width: '15%'};
 
         return (
             <TableRow className={this.props.className}>
                 <TableRowColumn className="wilks-col-name">{score.name}</TableRowColumn>
-                <TableRowColumn className="wilks-col-body" style={nstyle}>{this.formatWeight(score.weight)} {this.formatWilks(score.wilks)}</TableRowColumn>
-                <TableRowColumn className="wilks-col-squat" style={nstyle}>{this.formatWeight(score.squat)} {this.formatWilks(score.squatWilks)}</TableRowColumn>
-                <TableRowColumn className="wilks-col-bench" style={nstyle}>{this.formatWeight(score.bench)} {this.formatWilks(score.benchWilks)}</TableRowColumn>
-                <TableRowColumn className="wilks-col-dead" style={nstyle}>{this.formatWeight(score.dead)} {this.formatWilks(score.deadWilks)}</TableRowColumn>
-                <TableRowColumn className="wilks-col-total" style={Object.assign({background: '#FFF9C4'}, nstyle)}>{this.formatWeight(score.total)} {this.formatWilks(score.totalWilks)}</TableRowColumn>
+                <TableRowColumn className="wilks-col-body" style={rowStyle}>{Score.renderWeight(score.weight)} {Score.renderWilks(score.wilks)}</TableRowColumn>
+                <TableRowColumn className="wilks-col-squat" style={rowStyle}>{Score.renderWeight(score.squat)} {Score.renderWilks(score.squatWilks)}</TableRowColumn>
+                <TableRowColumn className="wilks-col-bench" style={rowStyle}>{Score.renderWeight(score.bench)} {Score.renderWilks(score.benchWilks)}</TableRowColumn>
+                <TableRowColumn className="wilks-col-dead" style={rowStyle}>{Score.renderWeight(score.dead)} {Score.renderWilks(score.deadWilks)}</TableRowColumn>
+                <TableRowColumn className="wilks-col-total" style={Object.assign({background: '#FFF9C4'}, rowStyle)}>{Score.renderWeight(score.total)} {Score.renderWilks(score.totalWilks)}</TableRowColumn>
             </TableRow>
         );
     }
 
+    static renderWilks(number) {
+        return <em>{number || number === 0 ? parseFloat(Math.round(number * 100) / 100).toFixed(2) : '?'}</em>;
+    }
+    static renderWeight(number) {
+        return <strong>{number || number === 0 ? number : '?'}kg</strong>;
+    }
 
     /**
      * Helper method to calculate wilks scores

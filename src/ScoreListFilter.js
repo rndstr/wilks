@@ -11,7 +11,7 @@ export default class ListFilter extends React.Component {
     handleFilterChange(e) {
         let update = {};
         update[e.target.name] = e.target.checked;
-        this.setState(update, function () {
+        this.setState(update, () => {
             this.props.onFilterChange(this.state);
         });
     }
