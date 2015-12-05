@@ -43,7 +43,7 @@ export default class ScoreList extends React.Component {
         });
 
         if (this.props.userScore) {
-            let userScoreNode = <Score className="wilks-user-score" score={this.props.userScore}/>;
+            let userScoreNode = <Score className="wilks-user-score" score={this.props.userScore} key="-1"/>;
             let insertAt = scoreNodes.findIndex(node => {
                 return (this.props.userScore.totalWilks < node.props.score.totalWilks);
             });
