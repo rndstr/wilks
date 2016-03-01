@@ -3,7 +3,11 @@ import React from 'react';
 import Form from './Form';
 import ScoreBox from './ScoreBox';
 
-import lists from './lists';
+import strengthlevel from './categories/strengthlevel';
+import uspa from './categories/uspa';
+const categories = [];
+strengthlevel(categories);
+uspa(categories);
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
@@ -22,7 +26,7 @@ export default class App extends React.Component {
             <div>
                 <h1>Wilks Calculator</h1>
                 <Form onUserScore={this.handleUserScore.bind(this)} />
-                <ScoreBox lists={lists} userScore={this.state.userScore} />
+                <ScoreBox categories={categories} userScore={this.state.userScore} />
             </div>
         );
     }

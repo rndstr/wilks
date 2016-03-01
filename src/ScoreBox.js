@@ -1,6 +1,6 @@
 import React from 'react';
 import ScoreListFilter from './ScoreListFilter';
-import ScoreList from './ScoreList';
+import ScoreCategory from './ScoreCategory';
 import wilks from './wilks';
 import Score from './Score';
 
@@ -11,25 +11,31 @@ export default class ScoreBox extends React.Component {
         this.state = {filters: {}};
 
         // prepare lists
-        this.props.lists.forEach((list, listIndex) => {
+        this.props.categories.forEach((category, catIndex) => {
             // precalculate wilks scores
-            list.scores.forEach((score, scoreIndex) => {
-                this.props.lists[listIndex].scores[scoreIndex] = Score.preprocess(
-                    this.props.lists[listIndex].scores[scoreIndex],
-                    this.props.lists[listIndex].gender
-                );
-            });
+            category.lists.forEach((list, listIndex) => {
+                list.scores.forEach((score, scoreIndex) => {
+                    this.props.categories[catIndex].lists[listIndex].scores[scoreIndex] = Score.preprocess(
+                        this.props.categories[catIndex].lists[listIndex].scores[scoreIndex],
+                        this.props.categories[catIndex].lists[listIndex].meta.gender
+                    );
+                    if (this.props.categories[catIndex].lists[listIndex].weight) {
+                        this.props.categories[catIndex].lists[listIndex].scores[scoreIndex].weight =
+                            this.props.categories[catIndex].lists[listIndex].weight;
+                    }
+                });
 
-            // sort by total wilks score
-            list.scores.sort((a, b) => {
-                if (a.totalWilks < b.totalWilks) {
-                    return -1;
-                }
-                if (a.totalWilks > b.totalWilks) {
-                    return 1;
-                }
+                // sort by total wilks score
+                list.scores.sort((a, b) => {
+                    if (a.totalWilks < b.totalWilks) {
+                        return -1;
+                    }
+                    if (a.totalWilks > b.totalWilks) {
+                        return 1;
+                    }
 
-                return 0;
+                    return 0;
+                });
             });
         });
     }
@@ -39,27 +45,31 @@ export default class ScoreBox extends React.Component {
     }
 
     render() {
-        var listNodes = this.props.lists.map((list, index) => {
+        const categoryNodes = this.props.categories.map((category, catIndex) => {
             return (
-                <ScoreList list={list} userScore={this.props.userScore} key={index} filters={this.state.filters} />
+                <ScoreCategory category={category} userScore={this.props.userScore} idx={catIndex} key={catIndex}
+                               filters={this.state.filters}/>
             );
         });
         return (
             <section>
                 <h2>Compare your strength</h2>
-                <ScoreListFilter onFilterChange={this.handleFilterChange.bind(this)} disabled={!this.props.userScore} />
-                {listNodes}
+                <ScoreListFilter onFilterChange={this.handleFilterChange.bind(this)} disabled={!this.props.userScore}
+                                 categories={this.props.categories}/>
+                {categoryNodes}
+                <p>Want more lists? Contact me</p>
             </section>
         );
     }
 }
 ScoreBox.propTypes = {
-    lists: React.PropTypes.arrayOf(React.PropTypes.object),
+    categories: React.PropTypes.arrayOf(React.PropTypes.object),
+    filters: React.PropTypes.object,
     userScore: React.PropTypes.object
 };
 
 
 ScoreBox.defaultProps = {
-    lists: [],
+    categories: [],
     userScore: null
 };

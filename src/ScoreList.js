@@ -13,9 +13,9 @@ import TableRow from 'material-ui/lib/table/table-row';
 import Score from './Score';
 
 export default class ScoreList extends React.Component {
-    static filterMatches(filters, list, user) {
+    filterMatches(filters, list, user) {
         return Object.keys(filters)
-            .filter(filter => filters[filter])
+            .filter(filter => filters[filter] !== false)
             .every(filter => {
                 if (filter === 'weight') {
                     // min
@@ -31,11 +31,12 @@ export default class ScoreList extends React.Component {
                 } else if (filter === 'gender') {
                     return list.meta.gender === user.gender;
                 }
+                return true;
             });
     }
 
     render() {
-        let visible = ScoreList.filterMatches(this.props.filters, this.props.list, this.props.userScore);
+        let visible = this.filterMatches(this.props.filters, this.props.list, this.props.userScore);
         let scoreNodes = this.props.list.scores.map((score, index) => {
             return (
                 <Score score={score} gender={this.props.list.gender} key={index}/>
@@ -63,7 +64,7 @@ export default class ScoreList extends React.Component {
 
         return (
             <Card style={{marginBottom: '16px', display: visible ? 'block' : 'none'}}>
-                <CardTitle style={{paddingBottom: 0, paddingTop: '16px'}} title={this.props.list.name} subtitle={this.props.list.url}/>
+                <CardTitle style={{paddingBottom: 0, paddingTop: '16px'}} title={this.props.list.meta.gender} subtitle={this.props.list.url}/>
                 <Table>
                     <TableHeader>
                         <TableRow>
@@ -87,5 +88,6 @@ export default class ScoreList extends React.Component {
 ScoreList.propTypes = {
     list: React.PropTypes.object,
     filters: React.PropTypes.object,
-    userScore: React.PropTypes.object
+    userScore: React.PropTypes.object,
+    categoryId: React.PropTypes.number
 };

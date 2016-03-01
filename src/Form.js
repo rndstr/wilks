@@ -5,6 +5,7 @@ import TextField from 'material-ui/lib/text-field';
 import RaisedButton from 'material-ui/lib/raised-button';
 import FlatButton from 'material-ui/lib/flat-button';
 import SelectField from 'material-ui/lib/select-field';
+import MenuItem from 'material-ui/lib/menus/menu-item';
 import Card from 'material-ui/lib/card/card';
 import CardText from 'material-ui/lib/card/card-text';
 import CardActions from 'material-ui/lib/card/card-actions';
@@ -26,7 +27,7 @@ export default class Form extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
 
-        let errors = ['weight', 'squat', 'bench', 'dead'].filter(what => {
+        const errors = ['weight', 'squat', 'bench', 'dead'].filter(what => {
                 return !this.validate(what);
         });
 
@@ -34,7 +35,7 @@ export default class Form extends React.Component {
             return;
         }
 
-        let score = Score.preprocess({
+        const score = Score.preprocess({
                 name: this.state.name,
                 weight: +this.state.weight,
                 squat: +this.state.squat,
@@ -48,13 +49,13 @@ export default class Form extends React.Component {
     }
 
     handleChange(what, e) {
-        var state = {};
+        const state = {};
         state[what] = e.target.value;
         this.setState(state);
     }
 
     handleNumberChange(what, e) {
-        let state = {}, value = e.target.value;
+        const state = {}, value = e.target.value;
 
         if (this.validate(what, value) || !value) {
             state[what] = value;
@@ -67,9 +68,9 @@ export default class Form extends React.Component {
             value = this.state[what];
         }
 
-        let error = (!Form.isNumber(value) || !value);
+        const error = (!Form.isNumber(value) || !value);
 
-        let state = {};
+        const state = {};
         state[what + 'Error'] = error ? 'Must be a number' : '';
         this.setState(state);
 
@@ -81,17 +82,7 @@ export default class Form extends React.Component {
     }
 
     render() {
-        let genderItems = [
-            {
-                payload: 'male',
-                text: 'Male'
-            },
-            {
-                payload: 'female',
-                text: 'Female'
-            }
-        ];
-        let unitItems = [
+        const unitItems = [
             {
                 payload: 'kg',
                 text: 'Kg'
@@ -102,7 +93,7 @@ export default class Form extends React.Component {
             }
         ];
 
-        let formStyles = {
+        const formStyles = {
             marginRight: '10px'
         };
 
@@ -114,10 +105,11 @@ export default class Form extends React.Component {
                         <SelectField
                             value={this.state.gender}
                             floatingLabelText="Gender"
-                            menuItems={genderItems}
                             onChange={this.handleChange.bind(this, 'gender')}
-                            style={Object.assign({display: 'block'}, formStyles)}
-                            />
+                            style={Object.assign({display: 'block'}, formStyles)}>
+                              <MenuItem value="male" key={0} primaryText="Male"/>
+                              <MenuItem value="female" key={1} primaryText="Female"/>
+                        </SelectField>
 
                         <TextField
                             floatingLabelText="Body weight"
