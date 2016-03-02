@@ -4,10 +4,9 @@ import Form from './Form';
 import ScoreBox from './ScoreBox';
 
 import strengthlevel from './categories/strengthlevel';
-import uspa from './categories/uspa';
 const categories = [];
+
 strengthlevel(categories);
-uspa(categories);
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
